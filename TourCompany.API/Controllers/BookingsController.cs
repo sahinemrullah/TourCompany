@@ -44,7 +44,7 @@ namespace TourCompany.API.Controllers
         public async Task<IActionResult> Add([FromBody] InsertBookingCommand command)
         {
             var booking = await _mediator.Send(command);
-            return Ok(booking.BookingID);
+            return Ok(booking.ID);
         }
 
         [HttpPut("{id:int}")]

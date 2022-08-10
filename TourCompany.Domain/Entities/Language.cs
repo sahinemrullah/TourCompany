@@ -1,15 +1,17 @@
-﻿namespace TourCompany.Domain.Entities
+﻿using TourCompany.Domain.SeedWork;
+
+namespace TourCompany.Domain.Entities
 {
-    public class Language
+    public class Language : BaseEntity
     {
-        public Language(int languageID, string name)
+        
+        public Language(string name)
         {
-            LanguageID = languageID;
-            Name = name;
-            Guides = new HashSet<GuideLanguage>();
+            _name = name;
         }
-        public int LanguageID { get; set; }
-        public string Name { get; set; }
-        public ICollection<GuideLanguage> Guides { get; set; }
+        
+        public string Name => _name;
+
+        private readonly string _name;
     }
 }

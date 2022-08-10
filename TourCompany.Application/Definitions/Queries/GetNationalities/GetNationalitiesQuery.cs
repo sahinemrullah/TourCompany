@@ -23,7 +23,7 @@ namespace TourCompany.Application.Definitions.Queries.GetNationalities
             return await _context.Nationalities
                             .Select(n => new NationalityDto()
                             {
-                                NationalityID = n.NationalityID,
+                                NationalityID = n.ID,
                                 Name = n.Name,
                             })
                             .ToListAsync(cancellationToken);

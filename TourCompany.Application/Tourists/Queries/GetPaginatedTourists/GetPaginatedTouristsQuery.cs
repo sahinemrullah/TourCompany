@@ -26,7 +26,7 @@ namespace TourCompany.Application.Tourists.Queries.GetPaginatedTourists
                             .Take(request.PageSize)
                             .Select(t => new TouristVm
                             {
-                                TouristID = t.TouristID,
+                                TouristID = t.ID,
                                 Name = t.Name,
                                 Surname = t.Surname,
                                 BirthDate = t.BirthDate,

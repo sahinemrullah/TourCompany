@@ -23,7 +23,7 @@ namespace TourCompany.Application.Definitions.Queries.GetLanguages
             return await _context.Languages
                             .Select(l => new LanguageDto()
                             {
-                                LanguageID = l.LanguageID,
+                                LanguageID = l.ID,
                                 Name = l.Name,
                             })
                             .ToListAsync(cancellationToken);

@@ -23,10 +23,10 @@ namespace TourCompany.Application.Invoices.Commands.InsertInvoice
         public async Task<Invoice> Handle(InsertInvoiceCommand request, CancellationToken cancellationToken)
         {
             var tourist = (from t in _context.Tourists
-                           where t.TouristID == request.TouristID
+                           where t.ID == request.TouristID
                            select new
                            {
-                               t.TouristID,
+                               t.ID,
                                Discount = EF.Functions.DateDiffYear(DateTime.Today, t.BirthDate) > 60 ? 0.15 : 0.0
                            }).FirstOrDefault();
             if (tourist == null)
@@ -34,10 +34,10 @@ namespace TourCompany.Application.Invoices.Commands.InsertInvoice
             var items = (from tp in _context.TourParticipants
                          join b in (from td in _context.TourDestinations
                                     join d in _context.Destinations
-                                     on td.DestinationID equals d.DestinationID
+                                     on td.DestinationID equals d.ID
                                     join b in _context.Bookings
                                      on td.TourID equals b.TourID
-                                    group d.Price by new { b.BookingID } into g
+                                    group d.Price by new { b.ID } into g
                                     select new
                                     {
                                         g.Key.BookingID,
@@ -54,7 +54,7 @@ namespace TourCompany.Application.Invoices.Commands.InsertInvoice
             var entity = new Invoice
             {
                 Date = DateTime.Today,
-                Discount = tourist.Discount,
+                AppliedDiscount = tourist.Discount,
                 TouristID = request.TouristID,
                 InvoiceItems = items
             };

@@ -26,7 +26,7 @@ namespace TourCompany.Application.Guides.Commands.UpdateGuide
 
         public async Task<int> Handle(UpdateGuideCommand request, CancellationToken cancellationToken)
         {
-            var guide = _context.Guides.Where(g => g.GuideID == request.GuideID).FirstOrDefault();
+            var guide = _context.Guides.Where(g => g.ID == request.GuideID).FirstOrDefault();
 
             if (guide == null)
                 throw new NotFoundException(nameof(Guide), request.GuideID);
@@ -53,7 +53,7 @@ namespace TourCompany.Application.Guides.Commands.UpdateGuide
 
             await _context.Instance.SaveChangesAsync(cancellationToken);
 
-            return guide.GuideID;
+            return guide.ID;
         }
     }
 }

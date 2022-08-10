@@ -26,18 +26,18 @@ namespace TourCompany.Application.Bookings.Queries.GetPaginatedBookings
                             .Take(request.PageSize)
                             .Select(b => new BookingVm
                             {
-                                BookingID = b.BookingID,
+                                BookingID = b.ID,
                                 Date = b.Date,
                                 Guide = new GuideDto()
                                 {
-                                    GuideID = b.Guide.GuideID,
+                                    GuideID = b.Guide.ID,
                                     Name = b.Guide.Name,
                                     Surname = b.Guide.Surname,
                                     TelephoneNumber = b.Guide.TelephoneNumber
                                 },
                                 Tour = new TourDto()
                                 {
-                                    TourID = b.Tour.TourID,
+                                    TourID = b.Tour.ID,
                                     Name = b.Tour.Name
                                 },
                                 Tourists = b.Tourists.Select(t => new TouristDto()
@@ -52,7 +52,7 @@ namespace TourCompany.Application.Bookings.Queries.GetPaginatedBookings
                                     Country = t.Tourist.Country.Name,
                                     Nationality = t.Tourist.Nationality.Name,
                                     Surname = t.Tourist.Surname,
-                                    TouristID = t.Tourist.TouristID
+                                    TouristID = t.Tourist.ID
                                 })
                             })
                             .ToListAsync(cancellationToken);

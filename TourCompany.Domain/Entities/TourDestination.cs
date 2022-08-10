@@ -2,9 +2,12 @@
 {
     public class TourDestination
     {
-        public int TourID { get; set; }
-        public int DestinationID { get; set; }
-        public Tour Tour { get; set; } = null!;
+        public int TourID { get => _tourID; private set => _tourID = value; }
+        public int DestinationID { get => _destinationID; private set => _destinationID = value; }
+
+        private int _destinationID;
+        private int _tourID;
+
         public Destination Destination { get; set; } = null!;
     }
 }

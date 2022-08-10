@@ -26,8 +26,8 @@ namespace TourCompany.Application.Invoices.Queries.GetUnpaidBookingsByTourist
                          from it in invoices.DefaultIfEmpty()
                          join b in (from b in _context.Bookings
                                     join t in _context.Tours
-                                        on b.TourID equals t.TourID
-                                    select new { b.BookingID, b.Date, t.TourID, t.Name })
+                                        on b.TourID equals t.ID
+                                    select new { b.ID, b.Date, t.ID, t.Name })
                             on tp.BookingID equals b.BookingID
 
                          where it.InvoiceID == null && tp.TouristID == request.TouristID

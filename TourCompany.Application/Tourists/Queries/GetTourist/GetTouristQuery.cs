@@ -22,10 +22,10 @@ namespace TourCompany.Application.Tourists.Queries.GetTourist
         {
 
             var query = _context.Tourists
-                .Where(t => t.TouristID == request.TouristID)
+                .Where(t => t.ID == request.TouristID)
                 .Select(t => new TouristVm
                 {
-                    TouristID = t.TouristID,
+                    TouristID = t.ID,
                     Name = t.Name,
                     Surname = t.Surname,
                     BirthDate = t.BirthDate,

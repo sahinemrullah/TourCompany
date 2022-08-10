@@ -29,7 +29,7 @@ namespace TourCompany.API.Controllers
             #endregion
             var visitedPlacesCountQuery = from td in _context.TourDestinations
                                           join d in _context.Destinations
-                                              on td.DestinationID equals d.DestinationID
+                                              on td.DestinationID equals d.ID
                                           join b in _context.Bookings
                                               on td.TourID equals b.TourID
                                           group td.DestinationID by new { td.DestinationID, d.Name } into g
@@ -80,7 +80,7 @@ namespace TourCompany.API.Controllers
                          join m in maxBookingByYearQuery
                             on r.Year equals m.Year
                          join g in _context.Guides
-                            on r.GuideID equals g.GuideID
+                            on r.GuideID equals g.ID
                          where r.BookingCount == m.MaxBookingCount
                          select new
                          {
@@ -102,21 +102,21 @@ namespace TourCompany.API.Controllers
         {
             var subQuery = from tp in _context.TourParticipants
                            join t in _context.Tourists
-                            on tp.TouristID equals t.TouristID
+                            on tp.TouristID equals t.ID
                            join b in _context.Bookings
-                            on tp.BookingID equals b.BookingID
+                            on tp.BookingID equals b.ID
                            where t.GenderID == (from g in _context.Genders
                                                 where g.Name == genderName
                                                 select g.GenderID).First()
                            select new
                            {
-                               b.BookingID,
+                               b.ID,
                                b.TourID,
                            };
 
             var result = from td in _context.TourDestinations
                          join d in _context.Destinations
-                             on td.DestinationID equals d.DestinationID
+                             on td.DestinationID equals d.ID
                          join b in subQuery
                              on td.TourID equals b.TourID
                          group td.DestinationID by new { td.DestinationID, d.Name } into g
@@ -140,24 +140,24 @@ namespace TourCompany.API.Controllers
         {
             var touristsSubQuery = from tourist in _context.Tourists
                                    join c in _context.Countries
-                                        on tourist.CountryID equals c.CountryID
+                                        on tourist.CountryID equals c.ID
                                    where c.Name == countryName
                                    select new
                                    {
-                                       tourist.TouristID,
+                                       tourist.ID,
                                        FullName = $"{tourist.Name} {tourist.Surname}",
                                    };
 
             var destinationSubQuery = from b in _context.Bookings
                                       join t in (from td in _context.TourDestinations
                                                  join d in _context.Destinations
-                                                    on td.DestinationID equals d.DestinationID
+                                                    on td.DestinationID equals d.ID
                                                  join t in _context.Tours
-                                                    on td.TourID equals t.TourID
+                                                    on td.TourID equals t.ID
                                                  where d.Name == destinationName
-                                                 select new { t.TourID })
+                                                 select new { t.ID })
                                       on b.TourID equals t.TourID
-                                      select new { b.BookingID };
+                                      select new { b.ID };
 
 
 
@@ -185,12 +185,12 @@ namespace TourCompany.API.Controllers
         {
             var tourDestionsQuery = from td in _context.TourDestinations
                                     join t in _context.Tours
-                                    on td.TourID equals t.TourID
+                                    on td.TourID equals t.ID
                                     join d in _context.Destinations
-                                    on td.DestinationID equals d.DestinationID
+                                    on td.DestinationID equals d.ID
                                     select new
                                     {
-                                        t.TourID,
+                                        t.ID,
                                         td.DestinationID,
                                         d.Name
                                     };
@@ -217,7 +217,7 @@ namespace TourCompany.API.Controllers
         {
             var result = (from b in _context.Bookings
                           join gu in _context.Guides
-                          on b.GuideID equals gu.GuideID
+                          on b.GuideID equals gu.ID
                           group b by new { b.GuideID, gu.Name, gu.Surname } into g
                           where g.Count() > tourCount
                           select new
@@ -238,10 +238,10 @@ namespace TourCompany.API.Controllers
                                                                         select new { g2.Key.DestinationID, Count = g2.Count() }
                                                        )
                                                       join d in _context.Destinations
-                                                       on subQuery.DestinationID equals d.DestinationID
+                                                       on subQuery.DestinationID equals d.ID
                                                       select new
                                                       {
-                                                          d.DestinationID,
+                                                          d.ID,
                                                           d.Name,
                                                           subQuery.Count
                                                       }).ToList()
@@ -258,25 +258,25 @@ namespace TourCompany.API.Controllers
         {
             var touristsSubQuery = from tourist in _context.Tourists
                                    join c in _context.Nationalities
-                                        on tourist.NationalityID equals c.NationalityID
+                                        on tourist.NationalityID equals c.ID
                                    where c.Name == nationalityName
                                    select new
                                    {
-                                       tourist.TouristID
+                                       tourist.ID
                                    };
 
             var destinationsSubQuery = from b in _context.Bookings
                                        join td in (from td in _context.TourDestinations
                                                    join d in _context.Destinations
-                                                   on td.DestinationID equals d.DestinationID
+                                                   on td.DestinationID equals d.ID
                                                    select new
                                                    {
                                                        td.TourID,
-                                                       d.DestinationID,
+                                                       d.ID,
                                                        d.Name
                                                    })
                                        on b.TourID equals td.TourID
-                                       select new { b.BookingID, td.DestinationID, td.Name };
+                                       select new { b.ID, td.DestinationID, td.Name };
 
             var result = from tp in _context.TourParticipants
                          join t in touristsSubQuery
@@ -311,25 +311,25 @@ namespace TourCompany.API.Controllers
         {
             var result = (from tp in _context.TourParticipants
                           join t in _context.Tourists
-                             on tp.TouristID equals t.TouristID
+                             on tp.TouristID equals t.ID
                           join b in (from td in _context.TourDestinations
                                      join b in _context.Bookings
                                          on td.TourID equals b.TourID
                                      join d in _context.Destinations
-                                         on td.DestinationID equals d.DestinationID
+                                         on td.DestinationID equals d.ID
                                      where d.Name == destinationName
-                                     select new { b.BookingID })
+                                     select new { b.ID })
                              on tp.BookingID equals b.BookingID
                           where EF.Functions.DateDiffYear(t.BirthDate, DateTime.Now) == (from tp in _context.TourParticipants
                                                                                          join t in _context.Tourists
-                                                                                            on tp.TouristID equals t.TouristID
+                                                                                            on tp.TouristID equals t.ID
                                                                                          join b in (from td in _context.TourDestinations
                                                                                                     join b in _context.Bookings
                                                                                                         on td.TourID equals b.TourID
                                                                                                     join d in _context.Destinations
-                                                                                                        on td.DestinationID equals d.DestinationID
+                                                                                                        on td.DestinationID equals d.ID
                                                                                                     where d.Name == destinationName
-                                                                                                    select new { b.BookingID })
+                                                                                                    select new { b.ID })
                                                                                             on tp.BookingID equals b.BookingID
                                                                                          group t by EF.Functions.DateDiffYear(t.BirthDate, DateTime.Now) into g
                                                                                          select g.Key)
@@ -355,18 +355,18 @@ namespace TourCompany.API.Controllers
             var result = from tp in _context.TourParticipants
                          join t in (from t in _context.Tourists
                                     join c in _context.Countries
-                                        on t.CountryID equals c.CountryID
+                                        on t.CountryID equals c.ID
                                     join n in _context.Nationalities
-                                        on t.NationalityID equals n.NationalityID
+                                        on t.NationalityID equals n.ID
                                     where c.Name == countryName && n.Name == nationalityName
-                                    select new { t.TouristID, t.Name, t.Surname })
+                                    select new { t.ID, t.Name, t.Surname })
                             on tp.TouristID equals t.TouristID
                          join b in (from td in _context.TourDestinations
                                     join b in _context.Bookings
                                         on td.TourID equals b.TourID
                                     join d in _context.Destinations
-                                        on td.DestinationID equals d.DestinationID
-                                    select new { b.BookingID, b.Date, d.DestinationID, DestinationName = d.Name })
+                                        on td.DestinationID equals d.ID
+                                    select new { b.ID, b.Date, d.ID, DestinationName = d.Name })
                             on tp.BookingID equals b.BookingID
                          select new
                          {
@@ -387,18 +387,18 @@ namespace TourCompany.API.Controllers
         {
             var result = from b in (from b in _context.Bookings
                                     join g in _context.Guides
-                                        on b.GuideID equals g.GuideID
+                                        on b.GuideID equals g.ID
                                     select new
                                     {
-                                        b.BookingID,
-                                        g.GuideID,
+                                        b.ID,
+                                        g.ID,
                                         GuideName = g.Name,
                                         GuideSurname = g.Surname,
                                         b.Date,
                                     })
                          where EF.Functions.DateDiffDay(b.Date, DateTime.Now) == (from td in _context.TourDestinations
                                                                                   join d in _context.Destinations
-                                                                                     on td.DestinationID equals d.DestinationID
+                                                                                     on td.DestinationID equals d.ID
                                                                                   join bo in _context.Bookings
                                                                                      on td.TourID equals bo.TourID
                                                                                   where d.Name == destinationName
@@ -413,11 +413,11 @@ namespace TourCompany.API.Controllers
                              b.Date,
                              Tourists = (from tp in _context.TourParticipants
                                          join t in _context.Tourists
-                                          on tp.TouristID equals t.TouristID
+                                          on tp.TouristID equals t.ID
                                          where tp.BookingID == b.BookingID
                                          select new
                                          {
-                                             t.TouristID,
+                                             t.ID,
                                              Tourist = $"{t.Name} {t.Surname}",
                                          }).ToList()
                          };

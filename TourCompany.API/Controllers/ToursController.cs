@@ -45,7 +45,7 @@ namespace TourCompany.API.Controllers
         public async Task<IActionResult> Add([FromBody] InsertTourCommand command)
         {
             var tour = await _mediator.Send(command);
-            return Ok(tour.TourID);
+            return Ok(tour.ID);
         }
 
         [HttpPut("{id:int}")]

@@ -26,12 +26,12 @@ namespace TourCompany.Application.Tours.Queries.GetPaginatedTours
                             .Take(request.PageSize)
                             .Select(t => new TourDto
                             {
-                                TourID = t.TourID,
+                                TourID = t.ID,
                                 Name = t.Name,
                                 Destinations = t.Destinations
                                             .Select(td => new DestinationDto()
                                             {
-                                                DestinationID = td.Destination.DestinationID,
+                                                DestinationID = td.Destination.ID,
                                                 Name = td.Destination.Name,
                                                 Price = td.Destination.Price
                                             })

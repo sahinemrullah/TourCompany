@@ -1,8 +1,16 @@
-﻿namespace TourCompany.Domain.Entities
+﻿using TourCompany.Domain.SeedWork;
+
+namespace TourCompany.Domain.Entities
 {
-    public class Gender
+    public class Gender : BaseEntity
     {
-        public int GenderID { get; set; }
-        public string Name { get; set; } = null!;
+        public Gender(string name)
+        {
+            _name = name;
+        }
+
+        public string Name => _name;
+
+        private readonly string _name;
     }
 }

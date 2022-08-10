@@ -2,9 +2,17 @@
 {
     public class TourParticipant
     {
-        public int BookingID { get; set; }
-        public int TouristID { get; set; }
-        public Booking Booking { get; set; } = null!;
+        private readonly int _touristID;
+        private readonly int _bookingID;
+
+        public TourParticipant(int touristID, int bookingID)
+        {
+            _touristID = touristID;
+            _bookingID = bookingID;
+        }
+
+        public int BookingID => _bookingID;
+        public int TouristID => _touristID;
         public Tourist Tourist { get; set; } = null!;
     }
 }

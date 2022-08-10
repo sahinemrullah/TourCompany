@@ -22,7 +22,7 @@ namespace TourCompany.Application.Tours.Commands.DeleteTour
         {
             var hasBooking = (from b in _context.Bookings
                               where b.TourID == request.TourID
-                              select b.BookingID)
+                              select b.ID)
                               .Any();
 
             if (hasBooking)

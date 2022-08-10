@@ -26,14 +26,14 @@ namespace TourCompany.Application.Tours.Commands.UpdateTour
         {
             var hasBooking = (from b in _context.Bookings
                               where b.TourID == request.TourID
-                              select b.BookingID)
+                              select b.ID)
                               .Any();
 
             if (hasBooking)
                 throw new BookingConflictException();
 
             var tour = await _context.Tours
-                                     .Where(g => g.TourID == request.TourID)
+                                     .Where(g => g.ID == request.TourID)
                                      .FirstOrDefaultAsync(cancellationToken);
 
             if (tour == null)
@@ -72,7 +72,7 @@ namespace TourCompany.Application.Tours.Commands.UpdateTour
             await _context.Instance
                           .SaveChangesAsync(cancellationToken);
 
-            return tour.TourID;
+            return tour.ID;
         }
     }
 }

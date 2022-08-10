@@ -13,11 +13,11 @@ namespace TourCompany.Infrastructure.Persistence.Configurations
             builder.Property(e => e.Price)
                 .HasPrecision(9, 2);
 
-            builder.HasOne(e => e.Invoice)
+            builder.HasOne<Invoice>()
                 .WithMany(e => e.InvoiceItems)
-                .HasPrincipalKey(e => new { e.InvoiceID, e.TouristID });
+                .HasPrincipalKey(e => new { e.ID, e.TouristID });
 
-            builder.HasOne(e => e.TourParticipant)
+            builder.HasOne<TourParticipant>()
                 .WithOne()
                 .HasForeignKey<InvoiceItem>(it => new { it.BookingID, it.TouristID });
         }

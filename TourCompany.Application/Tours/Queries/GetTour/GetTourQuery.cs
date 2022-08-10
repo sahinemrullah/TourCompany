@@ -22,7 +22,7 @@ namespace TourCompany.Application.Tours.Queries.GetTour
         {
 
             var query = _context.Tours
-                .Where(t => t.TourID == request.TourID)
+                .Where(t => t.ID == request.TourID)
                 .Select(t => new TourVm()
                 {
                     Name = t.Name,
@@ -32,11 +32,6 @@ namespace TourCompany.Application.Tours.Queries.GetTour
                         Name = td.Destination.Name,
                         Price = td.Destination.Price,
                     }),
-                    Bookings = t.Bookings.Select(b => new BookingDto()
-                    {
-                        BookingID = b.BookingID,
-                        Date = b.Date,
-                    })
                 });
             return await query.FirstOrDefaultAsync(cancellationToken);
         }

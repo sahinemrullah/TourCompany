@@ -25,7 +25,7 @@ namespace TourCompany.Application.Bookings.Commands.UpdateBooking
 
         public async Task<int> Handle(UpdateBookingCommand request, CancellationToken cancellationToken)
         {
-            var Booking = _context.Bookings.Where(g => g.BookingID == request.BookingID).FirstOrDefault();
+            var Booking = _context.Bookings.Where(g => g.ID == request.BookingID).FirstOrDefault();
 
             if (Booking == null)
                 throw new NotFoundException(nameof(Booking), request.BookingID);
@@ -52,7 +52,7 @@ namespace TourCompany.Application.Bookings.Commands.UpdateBooking
 
             await _context.Instance.SaveChangesAsync(cancellationToken);
 
-            return Booking.BookingID;
+            return Booking.ID;
         }
     }
 }

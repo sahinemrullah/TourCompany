@@ -23,7 +23,7 @@ namespace TourCompany.Application.Definitions.Queries.GetCountries
             return await _context.Countries
                             .Select(c => new CountryDto()
                             {
-                                CountryID = c.CountryID,
+                                CountryID = c.ID,
                                 Name = c.Name,
                             })
                             .ToListAsync(cancellationToken);

@@ -22,11 +22,11 @@ namespace TourCompany.Application.Invoices.Queries.GetInvoice
         {
             var query = from i in _context.Invoices
                         join t in _context.Tourists
-                            on i.TouristID equals t.TouristID
+                            on i.TouristID equals t.ID
                         where i.InvoiceNo == request.InvoiceNo
                         select new InvoiceVm()
                         {
-                            InvoiceID = i.InvoiceID,
+                            InvoiceID = i.ID,
                             InvoiceNo = i.InvoiceNo,
                             TouristID = i.TouristID,
                             Tourist = $"{t.Name} {t.Surname}",
@@ -34,14 +34,14 @@ namespace TourCompany.Application.Invoices.Queries.GetInvoice
                             Items = (from it in _context.InvoiceItems
                                      join b in (from b in _context.Bookings
                                                 join to in _context.Tours
-                                                 on b.TourID equals to.TourID
+                                                 on b.TourID equals to.ID
                                                 select new
                                                 {
-                                                    b.BookingID,
+                                                    b.ID,
                                                     to.Name
                                                 })
                                          on it.BookingID equals b.BookingID
-                                     where it.InvoiceID == i.InvoiceID
+                                     where it.InvoiceID == i.ID
                                      select new InvoiceItemDto()
                                      {
                                          Price = it.Price,

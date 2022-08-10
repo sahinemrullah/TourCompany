@@ -1,15 +1,16 @@
-﻿namespace TourCompany.Domain.Entities
+﻿using TourCompany.Domain.SeedWork;
+
+namespace TourCompany.Domain.Entities
 {
-    public class Nationality
+    public class Nationality : BaseEntity
     {
-        public Nationality(int nationalityID, string name)
+        public Nationality(string name)
         {
-            NationalityID = nationalityID;
-            Name = name;
-            Tourists = new HashSet<Tourist>();
+            _name = name;
         }
-        public int NationalityID { get; set; }
-        public string Name { get; set; }
-        public ICollection<Tourist> Tourists { get; set; }
+
+        public string Name => _name;
+
+        private readonly string _name;
     }
 }

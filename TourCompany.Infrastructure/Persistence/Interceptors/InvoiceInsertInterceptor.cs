@@ -16,7 +16,7 @@ namespace TourCompany.Infrastructure.Persistence.Interceptors
             {
                 var val = (from i in eventData.Context!.Set<Invoice>()
                            where i.Date == DateTime.Today
-                           group i.InvoiceID by i.Date into g
+                           group i.ID by i.Date into g
                            select new { Diff = g.Max() - g.Min() })
                            .FirstOrDefault();
                 if (val == null)
@@ -32,7 +32,7 @@ namespace TourCompany.Infrastructure.Persistence.Interceptors
             {
                 var val = (from i in eventData.Context!.Set<Invoice>()
                            where i.Date == DateTime.Today
-                           group i.InvoiceID by i.Date into g
+                           group i.ID by i.Date into g
                            select new { Diff = g.Max() - g.Min() })
                            .FirstOrDefault();
                 if (val == null)

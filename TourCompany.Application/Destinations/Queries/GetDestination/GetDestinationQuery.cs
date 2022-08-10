@@ -22,10 +22,10 @@ namespace TourCompany.Application.Destinations.Queries.GetDestination
         {
 
             var query = _context.Destinations
-                .Where(d => d.DestinationID == request.DestinationID)
+                .Where(d => d.ID == request.DestinationID)
                 .Select(d => new DestinationDto()
                 {
-                    DestinationID = d.DestinationID,
+                    DestinationID = d.ID,
                     Name = d.Name,
                     Price = d.Price,
                 });

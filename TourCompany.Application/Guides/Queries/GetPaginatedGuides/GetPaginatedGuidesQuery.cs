@@ -32,7 +32,7 @@ namespace TourCompany.Application.Guides.Queries.GetPaginatedGuides
                                     GenderID = g.GenderID,
                                     Name = g.Gender.Name
                                 },
-                                GuideID = g.GuideID,
+                                GuideID = g.ID,
                                 Name = g.Name,
                                 Surname = g.Surname,
                                 TelephoneNumber = g.TelephoneNumber,

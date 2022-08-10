@@ -22,7 +22,7 @@ namespace TourCompany.Application.Guides.Queries.GetGuide
         {
 
             var query = _context.Guides
-                .Where(g => g.GuideID == request.GuideID && g.IsActive)
+                .Where(g => g.ID == request.GuideID && g.IsActive)
                 .Select(g => new GuideVm()
                 {
                     Gender = new GenderDto()
@@ -30,7 +30,7 @@ namespace TourCompany.Application.Guides.Queries.GetGuide
                         GenderID = g.GenderID,
                         Name = g.Gender.Name
                     },
-                    GuideID = g.GuideID,
+                    GuideID = g.ID,
                     Name = g.Name,
                     Surname = g.Surname,
                     TelephoneNumber = g.TelephoneNumber,

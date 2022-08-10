@@ -22,12 +22,12 @@ namespace TourCompany.Application.Destinations.Queries.GetPaginatedDestinations
         public async Task<PaginatedList<DestinationDto>> Handle(GetPaginatedDestinationsQuery request, CancellationToken cancellationToken)
         {
             var items = await _context.Destinations
-                            .OrderBy(d => d.DestinationID)
+                            .OrderBy(d => d.ID)
                             .Skip((request.PageNumber - 1) * request.PageSize)
                             .Take(request.PageSize)
                             .Select(d => new DestinationDto
                             {
-                                DestinationID = d.DestinationID,
+                                DestinationID = d.ID,
                                 Name = d.Name,
                                 Price = d.Price,
                             })

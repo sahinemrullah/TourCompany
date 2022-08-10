@@ -2,9 +2,18 @@
 {
     public class GuideLanguage
     {
-        public int GuideID { get; set; }
-        public int LanguageID { get; set; }
-        public Language Language { get; set; } = null!;
-        public Guide Guide { get; set; } = null!;
+        public GuideLanguage(int guideID, int languageID)
+        {
+            _guideID = guideID;
+            _languageID = languageID;
+        }
+
+        public int GuideID => _guideID;
+        public int LanguageID => _languageID;
+
+        private readonly int _guideID;
+        private readonly int _languageID;
+        
+        public Language Language { get; set; } = null!; 
     }
 }

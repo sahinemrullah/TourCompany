@@ -14,7 +14,7 @@ namespace TourCompany.Infrastructure.Persistence.Configurations
                 .WithMany(t => t.Tours)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(tp => tp.Booking)
+            builder.HasOne<Booking>()
                 .WithMany(t => t.Tourists)
                 .OnDelete(DeleteBehavior.Restrict);
         }

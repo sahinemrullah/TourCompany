@@ -8,7 +8,7 @@ namespace TourCompany.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Invoice> builder)
         {
-            builder.Property(e => e.InvoiceID)
+            builder.Property(e => e.ID)
                 .UseIdentityColumn();
 
             builder.Property(e => e.InvoiceNo)

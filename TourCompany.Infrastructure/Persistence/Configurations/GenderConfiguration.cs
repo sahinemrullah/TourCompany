@@ -11,18 +11,6 @@ namespace TourCompany.Infrastructure.Persistence.Configurations
             builder.Property(g => g.Name)
                 .HasColumnType("nchar")
                 .HasMaxLength(5);
-            builder.HasData(
-                new Gender()
-                {
-                    GenderID = 1,
-                    Name = "Erkek"
-                },
-                new Gender()
-                {
-                    GenderID = 2,
-                    Name = "Kadın"
-                }
-            );
         }
     }
 }

@@ -26,12 +26,12 @@ namespace TourCompany.Application.Invoices.Queries.GetPaginatedInvoices
             if (request.Filter != null)
                 query = query.Where(i => i.InvoiceNo.Contains(request.Filter));
             var items = await query
-                            .OrderBy(d => d.InvoiceID)
+                            .OrderBy(d => d.ID)
                             .Skip((request.PageNumber - 1) * request.PageSize)
                             .Take(request.PageSize)
                             .Select(i => new InvoiceDto
                             {
-                                InvoiceID = i.InvoiceID,
+                                InvoiceID = i.ID,
                                 InvoiceNo = i.InvoiceNo,
                                 TouristID = i.TouristID,
                                 Tourist = $"{i.Tourist.Name} {i.Tourist.Surname}",

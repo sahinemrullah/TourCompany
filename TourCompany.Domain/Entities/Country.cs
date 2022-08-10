@@ -2,14 +2,12 @@
 {
     public class Country
     {
-        public Country(int countryID, string name)
+        private readonly string _name;
+
+        public Country(string name)
         {
-            CountryID = countryID;
-            Name = name;
-            Tourists = new HashSet<Tourist>();
+            _name = name;
         }
-        public int CountryID { get; set; }
-        public string Name { get; set; }
-        public ICollection<Tourist> Tourists { get; set; }
+        public string Name => _name;
     }
 }
